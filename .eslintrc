@@ -1,0 +1,7 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["eslint-config-headspring"],
+  "env": {
+    "es6": true
+  }
+}
