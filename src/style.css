@@ -19,3 +19,7 @@ button {
   border-style: solid;
   border-width: 2px;
 }
+
+.cell-alive {
+  background-color: darkgray;
+}

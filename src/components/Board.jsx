@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'reactstrap';
+import Cell from './Cell';
 
 class Board extends React.Component {
   // When a cell is clicked
@@ -9,12 +9,12 @@ class Board extends React.Component {
   createTable = (rows, cols) => {
     const table = [];
 
-    // Outer loop to create parent
+    // Outer loop to create rows
     for (let r = 0; r < rows; r++) {
       const row = [];
-      // Inner loop to create children
+      // Inner loop to create cells
       for (let c = 0; c < cols; c++) {
-        row.push(<td className="cell" />);
+        row.push(<Cell isAlive={false} />);
       }
       // Create the parent and add the children
       table.push(<tr>{row}</tr>);
@@ -24,7 +24,7 @@ class Board extends React.Component {
 
   render() {
     return (
-      <table className="board">
+      <table className="board m-auto">
         <tbody>
           {this.createTable(this.props.numRows, this.props.numCols)}
         </tbody>
