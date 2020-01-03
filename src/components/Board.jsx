@@ -4,7 +4,8 @@ import Cell from './Cell';
 
 class Board extends React.Component {
   // When a cell is clicked
-  handleClick = () => {}
+  handleClick = (r, c) =>
+    () => this.props.actions.toggleCellState(r, c);
 
   createTable = () => {
     const rows = this.props.board.numRows;
@@ -17,10 +18,10 @@ class Board extends React.Component {
       const row = [];
       // Inner loop to create cells
       for (let c = 0; c < cols; c++) {
-        row.push(<Cell isAlive={this.props.board.cells[r][c]} />);
+        row.push(<Cell key={`${r},${c}`} isAlive={this.props.board.cells[r][c]} handleClick={this.handleClick(r, c)} />);
       }
       // Create the parent and add the children
-      table.push(<tr>{row}</tr>);
+      table.push(<tr key={`${r}`}>{row}</tr>);
     }
 
     return table;
@@ -42,11 +43,10 @@ Board.propTypes = {
     numRows: PropTypes.number,
     numCols: PropTypes.number,
     cells: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.bool)),
-  }),
-};
-
-Board.defaultProps = {
-  board: {},
+  }).isRequired,
+  actions: PropTypes.shape({
+    toggleCellState: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default Board;
