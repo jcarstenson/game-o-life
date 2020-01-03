@@ -4,13 +4,13 @@ import { Provider } from 'react-redux';
 import 'material-design-lite/material.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
-import StaticGame from './components/StaticGame';
+import Game from './components/Game';
 import store from './store';
 
 
 ReactDOM.render(
   <Provider store={store}>
-    <StaticGame />
+    <Game />
   </Provider>,
   document.getElementById('react-app'),
 );
