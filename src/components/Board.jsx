@@ -6,7 +6,10 @@ class Board extends React.Component {
   // When a cell is clicked
   handleClick = () => {}
 
-  createTable = (rows, cols) => {
+  createTable = () => {
+    const rows = this.props.board.numRows;
+    const cols = this.props.board.numCols;
+
     const table = [];
 
     // Outer loop to create rows
@@ -14,11 +17,12 @@ class Board extends React.Component {
       const row = [];
       // Inner loop to create cells
       for (let c = 0; c < cols; c++) {
-        row.push(<Cell isAlive={false} />);
+        row.push(<Cell isAlive={this.props.board.cells[r][c]} />);
       }
       // Create the parent and add the children
       table.push(<tr>{row}</tr>);
     }
+
     return table;
   }
 
@@ -26,7 +30,7 @@ class Board extends React.Component {
     return (
       <table className="board m-auto">
         <tbody>
-          {this.createTable(this.props.board.numRows, this.props.board.numCols)}
+          {this.createTable()}
         </tbody>
       </table>
     );
