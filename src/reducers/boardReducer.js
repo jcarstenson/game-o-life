@@ -1,6 +1,4 @@
-const initialState = {
-  board: {},
-};
+import initialState from '../initialState';
 
 const boardReducer = (state = initialState.board, { type }) => {
   switch (type) {

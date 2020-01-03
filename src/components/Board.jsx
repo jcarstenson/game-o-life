@@ -26,7 +26,7 @@ class Board extends React.Component {
     return (
       <table className="board m-auto">
         <tbody>
-          {this.createTable(this.props.numRows, this.props.numCols)}
+          {this.createTable(this.props.board.numRows, this.props.board.numCols)}
         </tbody>
       </table>
     );
@@ -34,8 +34,15 @@ class Board extends React.Component {
 }
 
 Board.propTypes = {
-  numRows: PropTypes.number.isRequired,
-  numCols: PropTypes.number.isRequired,
+  board: PropTypes.shape({
+    numRows: PropTypes.number,
+    numCols: PropTypes.number,
+    cells: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.bool)),
+  }),
+};
+
+Board.defaultProps = {
+  board: {},
 };
 
 export default Board;

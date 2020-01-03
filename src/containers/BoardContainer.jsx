@@ -3,7 +3,9 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../actions/actions';
 import Board from '../components/Board';
 
-const mapStateToProps = () => ({ });
+const mapStateToProps = state => ({
+  board: state.board,
+});
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actions, dispatch),
