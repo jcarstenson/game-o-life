@@ -9,9 +9,9 @@ const initialState = {
     cells: new Array(CONST.NUM_ROWS).fill(0)
       .map(() => new Array(CONST.NUM_COLS).fill(false)),
   },
-  // game: {
-  //   isRunning: false,
-  // },
+  game: {
+    simulationIsRunning: false,
+  },
 };
 
 export default initialState;

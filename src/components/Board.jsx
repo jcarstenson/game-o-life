@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import Cell from './Cell';
 
 class Board extends React.Component {
-  // When a cell is clicked
   handleClick = (r, c) =>
-    () => this.props.actions.toggleCellState(r, c);
+    () => {
+      if (!this.props.simulationIsRunning) {
+        this.props.actions.toggleCellState(r, c);
+      }
+    };
 
   createTable = () => {
     const rows = this.props.board.numRows;
@@ -13,13 +16,14 @@ class Board extends React.Component {
 
     const table = [];
 
-    // Outer loop to create rows
+    // Create rows
     for (let r = 0; r < rows; r++) {
       const row = [];
-      // Inner loop to create cells
+      // Create cells
       for (let c = 0; c < cols; c++) {
         row.push(<Cell key={`${r},${c}`} isAlive={this.props.board.cells[r][c]} handleClick={this.handleClick(r, c)} />);
       }
+
       // Create the parent and add the children
       table.push(<tr key={`${r}`}>{row}</tr>);
     }
@@ -39,6 +43,7 @@ class Board extends React.Component {
 }
 
 Board.propTypes = {
+  simulationIsRunning: PropTypes.bool.isRequired,
   board: PropTypes.shape({
     numRows: PropTypes.number,
     numCols: PropTypes.number,
@@ -46,6 +51,7 @@ Board.propTypes = {
   }).isRequired,
   actions: PropTypes.shape({
     toggleCellState: PropTypes.func.isRequired,
+    stepCellGeneration: PropTypes.func.isRequired,
   }).isRequired,
 };
 

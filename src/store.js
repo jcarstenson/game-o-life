@@ -5,4 +5,5 @@ import initialState from './initialState';
 
 const middleware = [thunk];
 
-export default applyMiddleware(...middleware)(createStore)(rootReducer, initialState, window.devToolsExtension ? window.devToolsExtension() : f => f);
+// eslint-disable-next-line no-underscore-dangle
+export default applyMiddleware(...middleware)(createStore)(rootReducer, initialState, window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f);

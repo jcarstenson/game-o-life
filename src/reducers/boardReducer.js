@@ -22,9 +22,11 @@ function toggleArrayItem(array, action) {
 const boardReducer = (state = initialState.board, action) => {
   switch (action.type) {
     case CONST.TOGGLE_CELL:
-      return Object.assign({}, state, {
-        cells: toggleArrayItem(state.cells, action),
-      });
+      return Object.assign({},
+        state,
+        {
+          cells: toggleArrayItem(state.cells, action),
+        });
     default:
       return state;
   }

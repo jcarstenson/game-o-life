@@ -6,3 +6,7 @@ export const toggleCell = (row, column) => ({
   row,
   column,
 });
+
+export const toggleSimulation = () => ({
+  type: CONST.TOGGLE_SIMULATION,
+});
