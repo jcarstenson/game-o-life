@@ -3,16 +3,13 @@ import PropTypes from 'prop-types';
 import Cell from './Cell';
 
 class Board extends React.Component {
-  handleClick = (r, c) =>
-    () => {
-      if (!this.props.simulationIsRunning) {
-        this.props.actions.toggleCellState(r, c);
-      }
-    };
+  handleCellClick = (r, c) => () => {
+    this.props.actions.toggleCell(r, c);
+  };
 
   createTable = () => {
-    const rows = this.props.board.numRows;
-    const cols = this.props.board.numCols;
+    const rows = this.props.numRows;
+    const cols = this.props.numCols;
 
     const table = [];
 
@@ -21,7 +18,7 @@ class Board extends React.Component {
       const row = [];
       // Create cells
       for (let c = 0; c < cols; c++) {
-        row.push(<Cell key={`${r},${c}`} isAlive={this.props.board.cells[r][c]} handleClick={this.handleClick(r, c)} />);
+        row.push(<Cell key={`${r},${c}`} isAlive={this.props.board[r][c]} handleClick={this.handleCellClick(r, c)} />);
       }
 
       // Create the parent and add the children
@@ -43,15 +40,11 @@ class Board extends React.Component {
 }
 
 Board.propTypes = {
-  simulationIsRunning: PropTypes.bool.isRequired,
-  board: PropTypes.shape({
-    numRows: PropTypes.number,
-    numCols: PropTypes.number,
-    cells: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.bool)),
-  }).isRequired,
+  numRows: PropTypes.number.isRequired,
+  numCols: PropTypes.number.isRequired,
+  board: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.bool)).isRequired,
   actions: PropTypes.shape({
-    toggleCellState: PropTypes.func.isRequired,
-    stepCellGeneration: PropTypes.func.isRequired,
+    toggleCell: PropTypes.func.isRequired,
   }).isRequired,
 };
 

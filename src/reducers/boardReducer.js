@@ -1,32 +1,26 @@
 import * as CONST from '../constants';
 import initialState from '../initialState';
 
-function toggleArrayItem(array, action) {
-  const arr = array.map((row, r) => {
-    if (r !== action.row) {
-      return row;
+function toggleBoardCell(board, action) {
+  return board.map((rowArray, row) => {
+    if (row !== action.row) {
+      return rowArray;
     }
 
-    return row.map((value, c) => {
-      if (c !== action.column) {
-        return value;
+    return rowArray.map((cell, column) => {
+      if (column !== action.column) {
+        return cell;
       }
 
-      return !value;
+      return !cell;
     });
   });
-
-  return arr;
 }
 
-const boardReducer = (state = initialState.board, action) => {
+const boardReducer = (state = initialState.game.board, action) => {
   switch (action.type) {
     case CONST.TOGGLE_CELL:
-      return Object.assign({},
-        state,
-        {
-          cells: toggleArrayItem(state.cells, action),
-        });
+      return toggleBoardCell(state, action);
     default:
       return state;
   }
