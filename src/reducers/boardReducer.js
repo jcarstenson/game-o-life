@@ -21,6 +21,8 @@ const boardReducer = (state = initialState.game.board, action) => {
   switch (action.type) {
     case CONST.TOGGLE_CELL:
       return toggleBoardCell(state, action);
+    case CONST.CLEAR_BOARD:
+      return new Array(state.length).fill(0).map(() => new Array(state[0].length).fill(false));
     default:
       return state;
   }

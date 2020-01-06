@@ -13,3 +13,7 @@ export const stepGeneration = () => ({
 export const toggleSimulation = () => ({
   type: CONST.TOGGLE_SIMULATION,
 });
+
+export const clearBoard = () => ({
+  type: CONST.CLEAR_BOARD,
+});

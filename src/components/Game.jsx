@@ -31,14 +31,20 @@ class Game extends React.Component {
   render() {
     return (
       <div className="container pt-3">
+        <h1 className="text-center">Game o&apos; Life</h1>
         <div className="row">
           <BoardContainer />
         </div>
         <div className="row">
-          <ButtonGroup className="m-auto">
-            <Button onClick={this.toggleSimulation}>{this.props.game.simulationIsRunning ? 'Stop' : 'Play' }</Button>
-            <Button onClick={this.props.actions.stepGeneration} disabled={this.props.game.simulationIsRunning}>Step</Button>
-          </ButtonGroup>
+          <div className="m-auto">
+            <ButtonGroup>
+              <Button onClick={this.toggleSimulation}>{this.props.game.simulationIsRunning ? 'Stop' : 'Play' }</Button>
+              <Button onClick={this.props.actions.stepGeneration} disabled={this.props.game.simulationIsRunning}>Step</Button>
+            </ButtonGroup>
+            <ButtonGroup className="ml-2">
+              <Button onClick={this.props.actions.clearBoard} disabled={this.props.game.simulationIsRunning}>Clear</Button>
+            </ButtonGroup>
+          </div>
         </div>
       </div>
     );
@@ -53,6 +59,7 @@ Game.propTypes = {
   actions: PropTypes.shape({
     stepGeneration: PropTypes.func.isRequired,
     toggleSimulation: PropTypes.func.isRequired,
+    clearBoard: PropTypes.func.isRequired,
   }).isRequired,
 };
 
