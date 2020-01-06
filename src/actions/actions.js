@@ -5,3 +5,6 @@ export const toggleCell = (r, c) => dispatch =>
 
 export const stepGeneration = () => dispactch =>
   dispactch(actionTypes.stepGeneration());
+
+export const toggleSimulation = () => dispatch =>
+  dispatch(actionTypes.toggleSimulation());

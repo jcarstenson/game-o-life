@@ -4,7 +4,9 @@ import Cell from './Cell';
 
 class Board extends React.Component {
   handleCellClick = (r, c) => () => {
-    this.props.actions.toggleCell(r, c);
+    if (!this.props.simulationIsRunning) {
+      this.props.actions.toggleCell(r, c);
+    }
   };
 
   createTable = () => {
@@ -46,6 +48,7 @@ Board.propTypes = {
   actions: PropTypes.shape({
     toggleCell: PropTypes.func.isRequired,
   }).isRequired,
+  simulationIsRunning: PropTypes.bool.isRequired,
 };
 
 export default Board;

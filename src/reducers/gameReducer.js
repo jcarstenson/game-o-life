@@ -44,6 +44,8 @@ const gameReducer = (state = initialState.game, action) => {
   switch (action.type) {
     case CONST.STEP_GENERATION:
       return Object.assign({}, state, { board: applyConwaysGameOfLifeRules(state.board) });
+    case CONST.TOGGLE_SIMULATION:
+      return Object.assign({}, state, { simulationIsRunning: !state.simulationIsRunning });
     default:
       return Object.assign({}, state, { board: boardReducer(state.board, action) });
   }

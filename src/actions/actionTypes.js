@@ -9,3 +9,7 @@ export const toggleCell = (row, column) => ({
 export const stepGeneration = () => ({
   type: CONST.STEP_GENERATION,
 });
+
+export const toggleSimulation = () => ({
+  type: CONST.TOGGLE_SIMULATION,
+});

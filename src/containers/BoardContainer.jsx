@@ -7,6 +7,7 @@ const mapStateToProps = state => ({
   numRows: state.game.numRows,
   numCols: state.game.numCols,
   board: state.game.board,
+  simulationIsRunning: state.game.simulationIsRunning,
 });
 
 const mapDispatchToProps = dispatch => ({
