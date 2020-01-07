@@ -28,9 +28,7 @@ class Board extends React.Component {
     return table;
   }
 
-  handleEvent = (event) => {
-    console.log(event.type);
-
+  handleMouseEvents = (event) => {
     if (!this.props.simulationIsRunning) {
       if (event.type === 'mousedown') {
         if (event.target.tagName === 'TD') {
@@ -49,7 +47,11 @@ class Board extends React.Component {
           const column = Number(event.target.getAttribute('data-column'));
 
           this.props.actions.toggleCell(row, column);
-        } else if (event.target.tagName === 'TABLE' && this.state.isMouseDown) {
+        }
+      }
+
+      if (event.type === 'mouseout') {
+        if (event.relatedTarget.tagName !== 'TD' && this.state.isMouseDown) {
           this.setState({ isMouseDown: false });
         }
       }
@@ -64,7 +66,7 @@ class Board extends React.Component {
 
   render() {
     return (
-      <table className="board m-auto" onMouseDown={this.handleEvent} onMouseUp={this.handleEvent} onMouseOver={this.handleEvent} onDragStart={e => e.preventDefault()} >
+      <table className="board m-auto" onMouseDown={this.handleMouseEvents} onMouseUp={this.handleMouseEvents} onMouseOver={this.handleMouseEvents} onMouseOut={this.handleMouseEvents} onDragStart={e => e.preventDefault()} >
         <tbody>
           {this.createTable()}
         </tbody>
