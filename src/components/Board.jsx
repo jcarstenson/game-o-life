@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import Cell from './Cell';
 
 class Board extends React.Component {
-  handleCellClick = (r, c) => () => {
-    if (!this.props.simulationIsRunning) {
-      this.props.actions.toggleCell(r, c);
-    }
-  };
+  state = {
+    isMouseDown: false,
+  }
 
   createTable = () => {
     const rows = this.props.numRows;
@@ -20,7 +18,7 @@ class Board extends React.Component {
       const row = [];
       // Create cells
       for (let c = 0; c < cols; c++) {
-        row.push(<Cell key={`${r},${c}`} isAlive={this.props.board[r][c]} handleClick={this.handleCellClick(r, c)} />);
+        row.push(<Cell key={`${r},${c}`} isAlive={this.props.board[r][c]} row={r} column={c} />);
       }
 
       // Create the parent and add the children
@@ -30,9 +28,43 @@ class Board extends React.Component {
     return table;
   }
 
+  handleEvent = (event) => {
+    console.log(event.type);
+
+    if (!this.props.simulationIsRunning) {
+      if (event.type === 'mousedown') {
+        if (event.target.tagName === 'TD') {
+          this.setState({ isMouseDown: true });
+
+          const row = Number(event.target.getAttribute('data-row'));
+          const column = Number(event.target.getAttribute('data-column'));
+
+          this.props.actions.toggleCell(row, column);
+        }
+      }
+
+      if (event.type === 'mouseover') {
+        if (event.target.tagName === 'TD' && this.state.isMouseDown) {
+          const row = Number(event.target.getAttribute('data-row'));
+          const column = Number(event.target.getAttribute('data-column'));
+
+          this.props.actions.toggleCell(row, column);
+        } else if (event.target.tagName === 'TABLE' && this.state.isMouseDown) {
+          this.setState({ isMouseDown: false });
+        }
+      }
+
+      if (event.type === 'mouseup') {
+        this.setState({ isMouseDown: false });
+      }
+    }
+
+    return false;
+  }
+
   render() {
     return (
-      <table className="board m-auto">
+      <table className="board m-auto" onMouseDown={this.handleEvent} onMouseUp={this.handleEvent} onMouseOver={this.handleEvent} onDragStart={e => e.preventDefault()} >
         <tbody>
           {this.createTable()}
         </tbody>
