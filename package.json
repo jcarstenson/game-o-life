@@ -5,7 +5,8 @@
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server",
-    "test": "jest"
+    "test": "jest",
+    "prod": "webpack -p"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "./utilities/setupTests.js"
