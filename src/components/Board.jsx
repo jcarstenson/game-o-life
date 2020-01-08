@@ -51,7 +51,7 @@ class Board extends React.Component {
       }
 
       if (event.type === 'mouseout') {
-        if (event.relatedTarget.tagName !== 'TD' && this.state.isMouseDown) {
+        if ((event.relatedTarget.tagName === null || event.relatedTarget.tagName !== 'TD') && this.state.isMouseDown) {
           this.setState({ isMouseDown: false });
         }
       }
