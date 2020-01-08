@@ -1,7 +1,7 @@
 import * as actionTypes from './actionTypes';
 
-export const toggleCell = (r, c) => dispatch =>
-  dispatch(actionTypes.toggleCell(r, c));
+export const updateCells = (desiredCellState, coordinateList) => dispatch =>
+  dispatch(actionTypes.updateCells(desiredCellState, coordinateList));
 
 export const stepGeneration = () => dispatch =>
   dispatch(actionTypes.stepGeneration());

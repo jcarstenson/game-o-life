@@ -1,9 +1,9 @@
 import * as CONST from '../constants';
 
-export const toggleCell = (row, column) => ({
-  type: CONST.TOGGLE_CELL,
-  row,
-  column,
+export const updateCells = (desiredCellState, coordinateList) => ({
+  type: CONST.UPDATE_CELLS,
+  desiredCellState,
+  coordinateList,
 });
 
 export const stepGeneration = () => ({

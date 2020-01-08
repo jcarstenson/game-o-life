@@ -5,6 +5,8 @@ import Cell from './Cell';
 class Board extends React.Component {
   state = {
     isMouseDown: false,
+    enableCells: null,
+    cellsToChange: null,
   }
 
   createTable = () => {
@@ -32,12 +34,22 @@ class Board extends React.Component {
     if (!this.props.simulationIsRunning) {
       if (event.type === 'mousedown') {
         if (event.target.tagName === 'TD') {
-          this.setState({ isMouseDown: true });
+          const enableCells = !event.target.classList.contains('cell-alive');
 
           const row = Number(event.target.getAttribute('data-row'));
           const column = Number(event.target.getAttribute('data-column'));
 
-          this.props.actions.toggleCell(row, column);
+          this.setState({
+            isMouseDown: true,
+            enableCells,
+            cellsToChange: [{ row, column }],
+          });
+
+          if (enableCells) {
+            event.target.classList.add('cell-alive');
+          } else {
+            event.target.classList.remove('cell-alive');
+          }
         }
       }
 
@@ -46,22 +58,41 @@ class Board extends React.Component {
           const row = Number(event.target.getAttribute('data-row'));
           const column = Number(event.target.getAttribute('data-column'));
 
-          this.props.actions.toggleCell(row, column);
+          this.setState({
+            ...this.state,
+            cellsToChange: [...this.state.cellsToChange, { row, column }],
+          });
+
+          if (this.state.enableCells) {
+            event.target.classList.add('cell-alive');
+          } else {
+            event.target.classList.remove('cell-alive');
+          }
         }
       }
 
       if (event.type === 'mouseout') {
         if ((event.relatedTarget.tagName === null || event.relatedTarget.tagName !== 'TD') && this.state.isMouseDown) {
-          this.setState({ isMouseDown: false });
+          this.saveCellChanges();
         }
       }
 
       if (event.type === 'mouseup') {
-        this.setState({ isMouseDown: false });
+        this.saveCellChanges();
       }
     }
 
     return false;
+  }
+
+  saveCellChanges() {
+    this.props.actions.updateCells(this.state.enableCells, this.state.cellsToChange);
+
+    this.setState({
+      isMouseDown: false,
+      enableCells: null,
+      cellsToChange: null,
+    });
   }
 
   render() {
@@ -80,7 +111,7 @@ Board.propTypes = {
   numCols: PropTypes.number.isRequired,
   board: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.bool)).isRequired,
   actions: PropTypes.shape({
-    toggleCell: PropTypes.func.isRequired,
+    updateCells: PropTypes.func.isRequired,
   }).isRequired,
   simulationIsRunning: PropTypes.bool.isRequired,
 };
