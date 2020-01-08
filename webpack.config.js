@@ -21,5 +21,5 @@ module.exports = {
     new CopyPlugin([
       { from: '*', context: './src/wwwroot' },
     ]),
-  ]
+  ],
 };
