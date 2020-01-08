@@ -1,4 +1,5 @@
 const path = require('path');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/index.jsx',
@@ -16,4 +17,9 @@ module.exports = {
   devServer: {
     contentBase: path.resolve(__dirname, 'dist'),
   },
+  plugins: [
+    new CopyPlugin([
+      { from: '*', context: './src/wwwroot' },
+    ]),
+  ]
 };
