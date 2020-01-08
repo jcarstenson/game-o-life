@@ -4,8 +4,6 @@ import * as actions from '../actions/actions';
 import Board from '../components/Board';
 
 const mapStateToProps = state => ({
-  numRows: state.game.numRows,
-  numCols: state.game.numCols,
   board: state.game.board,
   simulationIsRunning: state.game.simulationIsRunning,
 });

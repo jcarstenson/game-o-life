@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Cell from './Cell';
@@ -7,27 +8,6 @@ class Board extends React.Component {
     isMouseDown: false,
     enableCells: null,
     cellsToChange: null,
-  }
-
-  createTable = () => {
-    const rows = this.props.numRows;
-    const cols = this.props.numCols;
-
-    const table = [];
-
-    // Create rows
-    for (let r = 0; r < rows; r++) {
-      const row = [];
-      // Create cells
-      for (let c = 0; c < cols; c++) {
-        row.push(<Cell key={`${r},${c}`} isAlive={this.props.board[r][c]} row={r} column={c} />);
-      }
-
-      // Create the parent and add the children
-      table.push(<tr key={`${r}`}>{row}</tr>);
-    }
-
-    return table;
   }
 
   handleMouseEvents = (event) => {
@@ -95,11 +75,24 @@ class Board extends React.Component {
     });
   }
 
+  renderCells = () =>
+    this.props.board.map((rowArray, row) => (
+      <tr key={row}>
+        {rowArray.map((cell, column) => (
+          <Cell key={`${row},${column}`} isAlive={cell} row={row} column={column} />
+        ))}
+      </tr>
+    ));
+
   render() {
     return (
-      <table className="board m-auto" onMouseDown={this.handleMouseEvents} onMouseUp={this.handleMouseEvents} onMouseOver={this.handleMouseEvents} onMouseOut={this.handleMouseEvents} onDragStart={e => e.preventDefault()} >
+      <table
+        className="board m-auto" onDragStart={e => e.preventDefault()}
+        onMouseDown={this.handleMouseEvents} onMouseUp={this.handleMouseEvents}
+        onMouseOver={this.handleMouseEvents} onMouseOut={this.handleMouseEvents}
+      >
         <tbody>
-          {this.createTable()}
+          {this.renderCells()}
         </tbody>
       </table>
     );
@@ -107,8 +100,6 @@ class Board extends React.Component {
 }
 
 Board.propTypes = {
-  numRows: PropTypes.number.isRequired,
-  numCols: PropTypes.number.isRequired,
   board: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.bool)).isRequired,
   actions: PropTypes.shape({
     updateCells: PropTypes.func.isRequired,
