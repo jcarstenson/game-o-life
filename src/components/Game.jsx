@@ -5,27 +5,29 @@ import BoardContainer from '../containers/BoardContainer';
 
 class Game extends React.Component {
   state = {
-    simulationTimeout: null,
+    simulationInterval: null,
   }
 
-  componentDidMount() {
+  componentWillUnmount() {
     if (this.props.game.simulationIsRunning) {
-      this.state.simulationTimeout = setTimeout(this.props.actions.stepGeneration, this.props.game.simulationSpeedMilliseconds);
-    }
-  }
-
-  componentDidUpdate() {
-    if (this.props.game.simulationIsRunning) {
-      this.state.simulationTimeout = setTimeout(this.props.actions.stepGeneration, this.props.game.simulationSpeedMilliseconds);
+      clearInterval(this.state.simulationInterval);
     }
   }
 
   toggleSimulation = () => {
     if (this.props.game.simulationIsRunning) {
-      clearTimeout(this.state.simulationTimeout);
+      clearInterval(this.state.simulationInterval);
+    } else {
+      this.setState({ simulationInterval: setInterval(this.checkUpdate, 25) });
     }
 
     this.props.actions.toggleSimulation();
+  }
+
+  checkUpdate = () => {
+    if (Date.now() >= this.props.game.simulationLastUpdate + this.props.game.simulationSpeedMilliseconds) {
+      this.props.actions.stepGeneration();
+    }
   }
 
   render() {
@@ -74,6 +76,7 @@ Game.propTypes = {
   game: PropTypes.shape({
     simulationIsRunning: PropTypes.bool.isRequired,
     simulationSpeedMilliseconds: PropTypes.number.isRequired,
+    simulationLastUpdate: PropTypes.number,
   }).isRequired,
   actions: PropTypes.shape({
     stepGeneration: PropTypes.func.isRequired,

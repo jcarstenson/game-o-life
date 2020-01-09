@@ -6,7 +6,8 @@ const initialState = {
     board: new Array(CONST.NUM_ROWS).fill(0).map(() => new Array(CONST.NUM_COLS).fill(false)),
 
     simulationIsRunning: false,
-    simulationSpeedMilliseconds: 5,
+    simulationSpeedMilliseconds: 250,
+    simulationLastUpdate: null,
   },
 };
 
