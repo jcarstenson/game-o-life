@@ -62,13 +62,13 @@ class Game extends React.Component {
             <ButtonGroup className="ml-2">
               <Button
                 onClick={this.props.actions.saveBoard} disabled={this.props.game.simulationIsRunning}
-                title="Save the current board to reset later"
+                title="Save the current board to reset later until the next time you save"
               >
                 Save
               </Button>
               <Button
                 onClick={this.props.actions.resetBoard} disabled={this.props.game.simulationIsRunning}
-                title="Reset the board to a previously loaded state"
+                title="Reset the board to a previously saved state"
               >
                 Reset
               </Button>

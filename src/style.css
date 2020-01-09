@@ -26,3 +26,7 @@ button {
 .cell-alive {
   background-color: darkslateblue;
 }
+
+.blockquote {
+  font-style: normal;
+}
