@@ -4,8 +4,12 @@ import { ButtonGroup, Button } from 'reactstrap';
 import BoardContainer from '../containers/BoardContainer';
 
 class Game extends React.Component {
-  state = {
-    simulationInterval: null,
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      simulationInterval: props.game.simulationIsRunning ? setInterval(this.checkUpdate, 25) : null,
+    };
   }
 
   componentWillUnmount() {
