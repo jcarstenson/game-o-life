@@ -11,3 +11,9 @@ export const toggleSimulation = () => dispatch =>
 
 export const clearBoard = () => dispatch =>
   dispatch(actionTypes.clearBoard());
+
+export const saveBoard = () => dispatch =>
+  dispatch(actionTypes.saveBoard());
+
+export const resetBoard = () => dispatch =>
+  dispatch(actionTypes.resetBoard());

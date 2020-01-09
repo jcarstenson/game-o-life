@@ -40,11 +40,38 @@ class Game extends React.Component {
         <div className="row">
           <div className="m-auto">
             <ButtonGroup>
-              <Button onClick={this.toggleSimulation}>{this.props.game.simulationIsRunning ? 'Stop' : 'Play' }</Button>
-              <Button onClick={this.props.actions.stepGeneration} disabled={this.props.game.simulationIsRunning}>Step</Button>
+              <Button
+                onClick={this.toggleSimulation}
+                title={`${this.props.game.simulationIsRunning ? 'Stop' : 'Play'} the simulation`}
+              >
+                {this.props.game.simulationIsRunning ? 'Stop' : 'Play' }
+              </Button>
+              <Button
+                onClick={this.props.actions.stepGeneration} disabled={this.props.game.simulationIsRunning}
+                title="Step once through the simulation"
+              >
+                Step
+              </Button>
             </ButtonGroup>
+            <Button
+              className="ml-2" onClick={this.props.actions.clearBoard} disabled={this.props.game.simulationIsRunning}
+              title="Clear the board"
+            >
+                Clear
+            </Button>
             <ButtonGroup className="ml-2">
-              <Button onClick={this.props.actions.clearBoard} disabled={this.props.game.simulationIsRunning}>Clear</Button>
+              <Button
+                onClick={this.props.actions.saveBoard} disabled={this.props.game.simulationIsRunning}
+                title="Save the current board to reset later"
+              >
+                Save
+              </Button>
+              <Button
+                onClick={this.props.actions.resetBoard} disabled={this.props.game.simulationIsRunning}
+                title="Reset the board to a previously loaded state"
+              >
+                Reset
+              </Button>
             </ButtonGroup>
           </div>
         </div>
@@ -82,6 +109,8 @@ Game.propTypes = {
     stepGeneration: PropTypes.func.isRequired,
     toggleSimulation: PropTypes.func.isRequired,
     clearBoard: PropTypes.func.isRequired,
+    saveBoard: PropTypes.func.isRequired,
+    resetBoard: PropTypes.func.isRequired,
   }).isRequired,
 };
 

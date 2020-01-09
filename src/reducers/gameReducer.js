@@ -40,12 +40,20 @@ function applyConwaysGameOfLifeRules(board) {
       cellEvolve(cell, countAliveNeighbors(board, row, column))));
 }
 
+function copyBoard(board) {
+  return board.map(row => row.slice());
+}
+
 const gameReducer = (state = initialState.game, action) => {
   switch (action.type) {
     case CONST.STEP_GENERATION:
       return Object.assign({}, state, { board: applyConwaysGameOfLifeRules(state.board), simulationLastUpdate: Date.now() });
     case CONST.TOGGLE_SIMULATION:
       return Object.assign({}, state, { simulationIsRunning: !state.simulationIsRunning, simulationLastUpdate: Date.now() });
+    case CONST.SAVE_BOARD:
+      return Object.assign({}, state, { savedBoard: copyBoard(state.board) });
+    case CONST.RESET_BOARD:
+      return Object.assign({}, state, { board: copyBoard(state.savedBoard) });
     default:
       return Object.assign({}, state, { board: boardReducer(state.board, action) });
   }

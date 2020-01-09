@@ -17,3 +17,11 @@ export const toggleSimulation = () => ({
 export const clearBoard = () => ({
   type: CONST.CLEAR_BOARD,
 });
+
+export const saveBoard = () => ({
+  type: CONST.SAVE_BOARD,
+});
+
+export const resetBoard = () => ({
+  type: CONST.RESET_BOARD,
+});
