@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ButtonGroup, Button } from 'reactstrap';
 import BoardContainer from '../containers/BoardContainer';
+import Patterns from './Patterns';
 
 class Game extends React.Component {
   constructor(props) {
@@ -63,6 +64,7 @@ class Game extends React.Component {
             >
                 Clear
             </Button>
+
             <ButtonGroup className="ml-2">
               <Button
                 onClick={this.props.actions.saveBoard} disabled={this.props.game.simulationIsRunning}
@@ -77,6 +79,8 @@ class Game extends React.Component {
                 Reset
               </Button>
             </ButtonGroup>
+
+            <Patterns />
           </div>
         </div>
         <div className="row mt-4">
