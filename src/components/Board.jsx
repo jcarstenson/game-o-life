@@ -52,7 +52,7 @@ class Board extends React.Component {
       }
 
       if (event.type === 'mouseout') {
-        if ((event.relatedTarget.tagName === null || event.relatedTarget.tagName !== 'TD') && this.state.isMouseDown) {
+        if ((event.relatedTarget === null || event.relatedTarget.tagName !== 'TD') && this.state.isMouseDown) {
           this.saveCellChanges();
         }
       }
